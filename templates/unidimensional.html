@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+
+{% block title %} Unidimensional {% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-sm-4 text-black">
+            <h3> Análisis de Datos </h3>
+            <h4> Unidimensional </h4>
+            <hr style="border: 1px solid white">
+            <form id="form_expl" method="GET">
+                <div class="form-row">
+                    <div class="form-group col-md-12"> <label for="inputState" style="color: black;"><b>Grado:</b></label>
+                        {{ form.grado }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12"> <label for="inputState" style="color: black;"><b>Curso:</b></label>
+                        {{ form.curso }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputState" style="color: black;"><b>Variable:</b></label>
+                        {{ form.variables }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-check">
+                        <p>{{ form.tabla_frec }} <label class="form-check-label" style="color: black;"><b> Tabla de frecuencias </b></label> </p>
+                    </div>
+                </div>
+                <br>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="check_graf" id="check_graf"
+                            onchange="javascript:showGraf()">
+                        <label class="form-check-label" style="color: black;"> <b> Gráficos </b> </label>
+                    </div>
+                    <div id="content_graf" class="border" style="display: none;">
+                        <div class="row">
+                            <div class="form-check">
+                                <p>{{form.histograma }} <label class="form-check-label" style="color: black;"> Histograma </label></p>
+                            </div>
+                            <div class="form-check">
+                                <p>{{form.d_barras}} <label class="form-check-label" style="color: black;"> Diagrama de barras </label></p>
+                            </div>
+                            <div class="form-check">
+                                <p>{{form.d_sectores}} <label class="form-check-label" style="color: black;"> Diagrama de sectores </label></p>
+                            </div>
+                            <div class="form-check">
+                                <p>{{form.poligono}} <label class="form-check-label" style="color: black;"> Polígono de frecuencias </label></p>
+                            </div>
+                            <div class="form-check">
+                                <p>{{form.d_tallo }} <label class="form-check-label" style="color: black;"> Diagrama de tallo y hoja </label></p>
+                            </div>
+                            <div class="form-check">
+                                <p>{{form.d_caja }} <label class="form-check-label" style="color: black;"> Diagrama de caja y patilla </label></p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_est" id="check_est"
+                        onchange="javascript:showEst()">
+                    <label class="form-check-label" style="color: black;"><b> Estadísticos Descriptivos </b></label>
+                </div>
+                <div id="content_est" class="border" style="display: none;">
+                    <div class="row">
+                        <table class="table-sm" id="tabla_est">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check"> <input type="checkbox" id="select_all" onchange="javascript:selectEst()"> Marcar Todo </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td> 
+                                        <div class="form-check"> {{form.e_media}} <label class="form-check-label" style="color: black;"> Media </label> </div>
+                                    </td>
+                                     <td>
+                                        <div class="form-check"> {{form.e_mediana}} <label class="form-check-label" style="color: black;"> Mediana</label> </div>
+                                    </td>
+                                    <td>
+                                        <div class="form-check"> {{form.e_moda}} <label class="form-check-label" style="color: black;"> Moda </label> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check"> {{form.e_varianza}} <label class="form-check-label" style="color: black;"> Varianza </label> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check"> {{form.e_cuasivar}} <label class="form-check-label" style="color: black;"> Cuasi-varianza muestral </label> </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check"> {{form.e_desviacion}} <label class="form-check-label" style="color: black;"> Desviación Típica </label></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check">{{form.e_cuasidesviacion}} <label class="form-check-label" style="color: black;"> Cuasi-desviación típica muestral </label></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">{{form.e_cuartiles}} <label class="form-check-label" style="color: black;"> Cuartiles </label> </div>
+                                    </td>
+                                    <td colspan="2">
+                                        <div class="form-check">{{form.e_percentiles}} <label class="form-check-label" style="color: black;"> Percentiles </label></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check">{{form.e_asimetria}} <label class="form-check-label" style="color: black;"> Coeficiente de Asimetría </label></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3">
+                                        <div class="form-check">{{form.e_kurtosis}} <label class="form-check-label" style="color: black;"> Coeficiente de Kurtosis </label></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>                
+                    </div>
+                </div>
+                <br>
+                <button type="submit" value="submit" class="btn btn-lg btn-dark">Generar</button>
+            </form>
+        </div>
+        <br>
+        <div class="col-sm-8 bg-white">
+            <br>
+            <div id="errores">
+                {% for e in errores %}
+                    <p> {{e}} </p>
+                {% endfor %}
+            </div>
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ cabecera }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if t_tabla == 'Cu' %}
+                        {% for f in filas %}
+                            <tr>
+                                <td>{{f.Nombre}}</td>
+                                <td>{{f.Abs}}</td>
+                                <td>{{f.Rel}}</td>
+                                <td>{{f.Porcen}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% elif t_tabla == 'D' %}
+                        {% for f in filas %}
+                            <tr>
+                                <td>{{f.Nombre}}</td>
+                                <td>{{f.Abs}}</td>
+                                <td>{{f.Abs_ac}}</td>
+                                <td>{{f.Rel}}</td>
+                                <td>{{f.Rel_ac}}</td>
+                                <td>{{f.Porcen}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% for f in filas %}
+                            <tr>
+                                <td>{{f.Nombre}}</td>
+                                <td>{{f.Marca}}</td>
+                                <td>{{f.Abs}}</td>
+                                <td>{{f.Abs_ac}}</td>
+                                <td>{{f.Rel}}</td>
+                                <td>{{f.Rel_ac}}</td>
+                                <td>{{f.Porcen}}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                {% if show_graf == True %}
+                    <img src='data:image/png;base64,{{graf}}' atl='graf_barras'/>
+                {%  endif %}
+            </div>
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ cabecera_ }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in filas_ %}
+                    <tr>
+                        <td>{{f.Nombre}}</td>
+                        <td>{{f.Valor}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+</div>
+<script type="text/javascript">
+    function showGraf() {
+        element = document.getElementById("content_graf");
+        check = document.getElementById("check_graf");
+        if (check.checked) {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+
+    function showEst() {
+        element = document.getElementById("content_est");
+        check = document.getElementById("check_est");
+        if (check.checked) {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+
+    function selectEst() {
+        check = document.getElementById("select_all");
+        if (check.checked) {
+            $('input:checkbox', '#tabla_est').attr('checked', true);
+        } else {
+            $('input:checkbox', '#tabla_est').attr('checked', false);
+        }    
+    };
+</script>
+{% endblock content %}

@@ -1,0 +1,172 @@
+body {
+    background-color: rgb(224, 224, 224) !important;
+    color: black;
+}
+
+.titulo {
+    color: #5c068c;
+    background-color: white;
+    text-align: center;
+    font-size: 26px;
+    font-family: Impact;
+}
+
+label {
+    color: white;
+}
+
+.container-fluid {
+    width: 95%;
+}
+.button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    margin-left:10px;
+    display: inline-block;
+    font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.button:hover{
+    background-color: rgb(173, 197, 216);
+    color: #1C2331;
+    text-decoration: none;
+}
+
+.navbar {
+    margin-bottom: 0;
+    background-color: #1C2331;
+    z-index: 9999;
+    border: 0;
+    line-height: 1.42857143 !important;
+    letter-spacing: 3px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+} 
+
+.dropdown-menu{
+    background-color: #1C2331 !important;
+    letter-spacing: 3px;
+}
+
+#navbarDropdownMenuLink {
+    letter-spacing: 3px;
+    font-size: 25px;
+}
+
+html,body,#wrapper {
+    height:100%;
+    width: 100%;
+    margin:0;
+    padding:0;
+}
+
+#wrapper {
+    position: fixed;
+    background-color: rgb(187, 214, 240);
+}
+
+#formulario_subir {
+    display:block;
+    position:relative;
+    top:5%;
+    border-radius: 15px;
+    background-color: #1C2331;
+    color:white;
+    font-size: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+hr.form_datos {
+    border-top: 1px solid white;
+  }
+
+p.form_datos {
+    text-align: center;
+    margin-bottom: 1%;
+    font-size: 40px;
+}
+
+.bt1 {
+    background-color: rgb(44, 78, 112);  
+    font-size: 30px;
+    border-color: white;
+    border-radius: 8px;
+    color:white;
+    padding: 12px 68px;
+}
+
+.bt1:hover {
+    background-color: #2b702d;
+    box-shadow: 0 5px rgb(71, 71, 71);
+  }
+
+.saludo {
+    font-size: 25px;
+    font-family: 'Courier New', Courier, monospace;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.panel_info {
+    background-color: wheat;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+.titulo_panel {
+    position: relative;
+    font-size: 30px;
+    margin-top: 3%;
+    margin-left: 2%;
+}
+
+.tabla_info {
+    font-size: 25px;
+    margin: 5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  #caja_seleccion {
+    margin-left: 1em;
+    width: 90%;
+    margin-bottom: 1em;
+}
+
+.caja_seleccion {
+    border-radius: 0.5em;
+    border: cornsilk;
+    margin-left: 1em;
+    width: 90%;
+    margin-bottom: 2em;
+    background-color:#3E4551;
+    display: none;
+}
+
+.caja_secundaria {
+    display: none;
+    margin-bottom: 0.5em;
+}
+
+#segunda_caja {
+    margin-left: 1.25em;
+}
+        
+#errores {
+    background-color: blanchedalmond;
+    color: rgb(104, 0, 0);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}

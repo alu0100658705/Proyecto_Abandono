@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div id="wrapper">
+    <div class="container" id="formulario_subir">
+        <br>
+        <p class="form_datos">Formulario: Cargar Datos</p>
+        <hr class="form_datos">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p><b> {{ form.grado.label }} </b> {{ form.grado }} </P>
+            <p><b> {{ form.curso.label }} </b>  {{ form.curso }} </p>
+            <table class="table-sm">
+                <tr>        
+                    <td> <label> <b>{{ form.f_matriculados.label }}</b> </label> </td><td> {{ form.f_matriculados }}</td>
+                </tr>
+                <tr>
+                    <td> <label> <b>{{ form.f_abandono.label }} </b></label> </td><td> {{ form.f_abandono }}</td>    
+                </tr>
+                <tr>
+                    <td> <label> <b>{{ form.f_rp30.label }} </b></label> </td><td> {{ form.f_rp30 }}</td>
+                </tr>
+            </table>
+            <br>
+            <div style="text-align:center;">
+                <button type="submit" value="submit" class="bt1">Enviar</button>
+            </div>    
+        </form>
+        <br>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title> {% block title %} Proyecto TFG {% endblock title %}</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+</head>
+<body>
+	<div class="titulo">
+	Sistema Informático de apoyo a la orientación de estudiantes basado en test psicotécnicos e indicadores de educación
+	</div>
+    <nav class="navbar navbar-expand-lg">
+      		<a class="navbar-brand" href="{% url 'home' %}"></a>
+      		<button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        		<span class="navbar-toggler-icon"></span>
+      		</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav mr-auto">
+                    <li>
+						<a href="{% url 'home' %}" type="button" class="button"> Inicio </a>
+					</li>
+					{% if user.is_staff %} 
+					<li>
+						<a href="{% url 'subir_datos' %}" type="button" class="button"> Subir Datos </a>
+					</li>
+					<li>
+						<a href="{% url 'mostrar_datos' %}" type="button" class="button"> Ver Datos </a>
+					</li>
+					{% endif %}
+					<li>
+						<div class="dropdown">
+							<button href="#" class="nav-link dropdown-toggle button" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Herramienta </button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          						<a class="dropdown-item button text-left" href="{% url 'unidimensional' %}">Unidimensional</a>
+								<a class="dropdown-item button text-left" href="{% url 'bidimensional' %}">Bidimensional</a>
+							</div>
+						</div>
+					</li>
+					{% if user.is_authenticated %}
+					<li>
+						<a href="{% url 'user_space' %}" type="button" class="button"> Mi espacio </a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+			<div class="navbar-collapse collapse w-80 order-3 dual-collapse2">
+				<ul class="navbar-nav ml-auto">
+					{% if user.is_authenticated %}
+					<li class="nav-item">
+						<a type="button" class="button" href="{% url 'account_logout' %}">Cerrar Sesión</a>
+					</li>
+					{% else %}
+					<li class="nav-item">
+						<a type="button" class="button" href="{% url 'account_login' %}">Iniciar Sesión</a>
+						<a type="button" class="button" href="{% url 'account_signup' %}">Registrarse</a>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+		</nav>
+        {% block content %}
+        {% endblock content %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

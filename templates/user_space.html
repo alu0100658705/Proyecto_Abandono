@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load usuarios_extras %}
+
+{% block content %}
+<div id="container-fluid">
+    {% if user.is_authenticated %}
+    <p class="saludo">Hola, {{ user.email }} </p> 
+        {% if request.session.data_frame == None %}
+        <div class="panel_info">
+            <p style="font-size: 24px; margin-left: 2%;"> No se han cargado datos. Puede hacerlo a través del siguiente botón: </p> 
+            <div style="text-align:center;">
+                <a href="{% url 'cargar_datos' %}" type="button" class="bt1" style="color: white;"> Cargar Datos </a>
+            </div>
+            <br>
+        </div>
+        {% else %}
+        <div class="panel_info">
+            <div class="titulo_panel">Datrame: </div>
+            <div class="tabla_info">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th colspan="2">Información</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tr>
+                            <th><b>Grado:</b> {{request.session.grado}}</th>
+                            <th><b>Curso:</b> {{request.session.curso}}</th>
+                        </tr>
+                        </tr>
+                            <th><b>Filas:</b> {{request.session.rows_df}}</th>
+                            <th><b>Columnas:</b> {{request.session.cols_df}}</th>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Número de campos: {{request.session.size_df}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br> 
+            <div class="tabla_info">
+                Resumen de Datos (5 primeras filas):
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                {% for key in request.session.data_frame|get_item %}
+                                    <th style="font-size: 10px;">{{key}}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                            <tbody>
+                                {% for i in 5|times %}
+                                    <tr>
+                                        {% for key in request.session.data_frame|get_item %}
+                                            <th style="font-size: 10px;"> {{ request.session.data_frame|get_sub_dict:key|get_value:i }}</th>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                    </table>
+                </div>
+                ...
+                <div style="text-align:center;">
+                    <a href="{% url 'analisis' %}" type="submit" value="submit" class="bt1" style="color: white; border: 1px;" >Analizar</a>
+                </div>
+                <br>
+            </div>
+            
+        </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

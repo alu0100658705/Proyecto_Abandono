@@ -1,0 +1,474 @@
+{% extends 'base.html' %}
+
+{% block title %} Bidimensional {% endblock title %}
+
+{% block content %}
+<div class="container-fluid">
+    <br>
+    <div class="row">
+        <div class="col-sm-4 text-black">
+            <h3> Análisis de Datos </h3>
+            <h4> Bidimensional </h4>
+            <hr style="border: 1px solid white">
+            <form id="form_expl" method="GET">
+                <div class="form-row">
+                    <div class="form-group col-md-12"> <label for="inputState" style="color: black;"><b>Grado:</b></label>
+                        {{ form.grado }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12"> <label for="inputState" style="color: black;"><b>Curso:</b></label>
+                        {{ form.curso }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputState" style="color: black;"><b>Variable X:</b></label>
+                        {{ form.variables_1 }}
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="inputState" style="color: black;"><b>Variable Respuesta:</b></label>
+                        {{ form.variables_2 }}
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_cat" id="check_cat" onchange="javascript:showOptions('check_cat', 'categoricos')">
+                    <label class="form-check-label" style="color: black;"> <b> Análisis de Datos Categóricos </b> </label>
+                </div>
+                <div class="form-row">
+                    <div id="categoricos" class="caja_seleccion">
+                        <div class="form-check">
+                            {{form.tabla_cont}}
+                            <label class="form-check-label"> Tabla de Contingencia</label>
+                        </div>
+                        <div class="form-check">
+                            {{form.independencia}} 
+                            <label class="form-check-label"> Prueba de Independencia </label>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_asoc" id="check_asoc" onchange="javascript:showOptions('check_asoc', 'content_asoc')">
+                            <label class="form-check-label"> Medidas de Asociación </label>
+                            <div class="form-row">
+                                <div id="content_asoc" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.c_phi}} 
+                                        <label class="form-check-label"> Coeficiente de Φ </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.c_contingencia}} 
+                                        <label class="form-check-label"> Coeficiente C de contingencia </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.c_cramer}}
+                                        <label class="form-check-label"> Coeficiente V de Cramer </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.tau_kendall}}
+                                        <label class="form-check-label"> Tau de Kendall </label> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_graf" id="check_graf" onchange="javascript:showOptions('check_graf', 'content_graf')">
+                    <label class="form-check-label" style="color: black;"> <b> Gráficos </b> </label>
+                </div>
+                <div class="form-row">
+                    <div id="content_graf" class="caja_seleccion">
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_bar" id="check_bar" onchange="javascript:showOptions('check_bar', 'content_barras')">
+                            <label class="form-check-label"> Diagramas de barras </label>
+                            <div class="form-row">
+                                <div id="content_barras" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.adosados}} 
+                                        <label class="form-check-label"> Adosados </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.apilados}} 
+                                        <label class="form-check-label"> Apilados </label> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check">
+                            {{form.mosaicos}}
+                            <label class="form-check-label"> Diagrama de Mosaicos </label>
+                        </div>
+                        <div class="form-check">
+                            {{form.caja_patilla}}
+                            <label class="form-check-label"> Diagrama de Caja y Patilla </label>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_dis" id="check_dis" onchange="javascript:showOptions('check_dis', 'content_dis')">
+                            <label class="form-check-label"> Gráfico de Dispersión </label>
+                            <div class="form-row">
+                                <div id="content_dis" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.d_lineal}} 
+                                        <label class="form-check-label"> Ajuste Lineal</label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.d_sigmoide}} 
+                                        <label class="form-check-label"> Ajuste Función Sigmoide </label> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_lineal" id="check_lineal" onchange="javascript:showOptions('check_lineal', 'content_lineal')">
+                    <label class="form-check-label" style="color: black;"> <b> Modelo: Regresión Lineal </b> </label>
+                </div>
+                <div class="form-row">
+                    <div id="content_lineal" class="caja_seleccion">
+                        <div class="form-check">
+                            {{form.estimacion}}
+                            <label class="form-check-label"> Estimación de los parámetros β1 y β0 </label>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_hipotesis_lineal" id="check_hipotesis_lineal" onchange="javascript:showOptions('check_hipotesis_lineal', 'content_hipotesis_lineal')">
+                            <label class="form-check-label"> Hipótesis del Modelo </label>
+                            <div class="form-row">
+                                <div id="content_hipotesis_lineal" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.kolmogorov}} 
+                                        <label class="form-check-label"> Test de Kolmogorov-Smirnov </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.residuos}}
+                                        <label class="form-check-label"> Gráfico de predichos frente a residuos </label>
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.durbin}}
+                                        <label class="form-check-label"> Test de Durbin-Watson </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_bondad_lineal" id="check_bondad_lineal" onchange="javascript:showOptions('check_bondad_lineal', 'content_bondad_lineal')">
+                            <label class="form-check-label"> Bondad del Ajuste </label>
+                            <div class="form-row">
+                                <div id="content_bondad_lineal" class="caja_secundaria">
+                                    <div class="form-check" id="segunda_caja">
+                                        <input class="form-check-input" type="checkbox" name="check_medidas" id="check_medidas" onchange="javascript:showOptions('check_medidas', 'content_medidas')">
+                                        <label class="form-check-label"> Medidas de asociación</label>
+                                        <div id="content_medidas" class="caja_secundaria">
+                                            <div class="form-check">
+                                                {{form.c_correlacion}} 
+                                                <label class="form-check-label">  Coef. Correlación </label> 
+                                            </div>
+                                            <div class="form-check">
+                                                {{form.c_determinacion}} 
+                                                <label class="form-check-label"> Coef. Determinación </label> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.anova}} 
+                                        <label class="form-check-label"> Anova de la Regresión </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.contrastes}}
+                                        <label class="form-check-label"> Contrastes sobre β1 y β0 </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_prediccion" id="check_prediccion" onchange="javascript:showOptions('check_prediccion', 'content_prediccion')">
+                            <label class="form-check-label"> Predicción </label>
+                            <div class="form-row">
+                                <div id="content_prediccion" class="caja_secundaria">
+                                    <div class="form-check">
+                                        <label class="form-check-label"> Valor de la variable X: </label> 
+                                        {{form.prediccion}} 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_logistico" id="check_logistico" onchange="javascript:showOptions('check_logistico', 'content_logistico')">
+                    <label class="form-check-label" style="color: black;"> <b> Modelo: Regresión Logística </b> </label>
+                </div>
+                <div class="form-row">
+                    <div id="content_logistico" class="caja_seleccion">
+                        <div class="form-check">
+                            {{form.estimacion_log}} </td>
+                            <label class="form-check-label"> Estimación de los parámetros β1 y β0 </label>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_hipotesis_logistica" id="check_hipotesis_logistica" onchange="javascript:showOptions('check_hipotesis_logistica', 'content_hipotesis_logistica')">
+                            <label class="form-check-label"> Hipótesis del Modelo </label>
+                            <div class="form-row">
+                                <div id="content_hipotesis_logistica" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.signifi}}
+                                        <label class="form-check-label"> Relación lineal entre el logaritmo natural de odds y variable continua X </label>
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.durbin_log}}
+                                        <label class="form-check-label"> Test de Durbin-Watson </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_bondad_logistica" id="check_bondad_logistica" onchange="javascript:showOptions('check_bondad_logistica','content_bondad_logistica')">
+                            <label class="form-check-label"> Bondad del Ajuste </label>
+                            <div class="form-row">
+                                <div id="content_bondad_logistica" class="caja_secundaria">
+                                    <div class="form-check">
+                                        {{form.contrastes_logistico}} 
+                                        <label class="form-check-label"> Contrastes sobre β1 y β0 </label> 
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.test_verosimilitud}}
+                                        <label class="form-check-label"> Test de Verosimilitud </label>
+                                    </div>
+                                    <div class="form-check">
+                                        {{form.c_mcfadden}}
+                                        <label class="form-check-label"> Coeficiente pseudo R² de McFadden </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check" id="segunda_caja">
+                            <input class="form-check-input" type="checkbox" name="check_prediccion_log" id="check_prediccion_log" onchange="javascript:showOptions('check_prediccion_log', 'content_prediccion_log')">
+                            <label class="form-check-label"> Predicción </label>
+                            <div class="form-row">
+                                <div id="content_prediccion_log" class="caja_secundaria">
+                                    <div class="form-check">
+                                        <label class="form-check-label"> Valor de la variable X: </label> 
+                                        {{form.prediccion_log}} 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <button type="submit" value="submit" class="btn btn-lg btn-dark">Generar</button>
+            </form>
+        </div>
+        <div class="col-sm-8 bg-white">
+            <div id="errores">
+                {% for e in errores %}
+                    <p> {{e}} </p>
+                {% endfor %}
+            </div>
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ cabecera }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f1 in filas %}
+                        <tr>
+                        {% for f_1 in f1 %}
+                            <td>{{f_1}}</td>
+                        {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if show_indp == True %}
+                <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> Prueba de Independencia </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>χ²</td> <td> {{test_indp.est}} </td> </tr>
+                    <tr><td>p-valor</td> <td> {{test_indp.p_v}} </td></tr>
+                    <tr><td>grados de libertad</td><td>{{test_indp.g_l}} </td></tr>
+                </tbody>
+                </table>
+            {% endif %}
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ c_asoc }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for f in f_asoc %}
+                    <tr>
+                        {% if f.Nombre == 'Tau de Kendall' %}
+                            <td>{{f.Nombre}}</td>
+                            <td>{{f.t_valor}}</td>
+                            <td>{{f.p_valor}}</td>
+                        {% else %}
+                            <td>{{f.Nombre}}</td>
+                            <td colspan="2">{{f.Valor |safe }}</td>
+                        {% endif%}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                {% if show_graf == True %}
+                    <img src='data:image/png;base64,{{graf}}' atl='graf_barras'/>
+                {% endif %}
+            </div>
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ r_lineal }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in d_lineal %}
+                    <tr>
+                        {% if d.Nombre == 'Anova' %}
+                            <tr>
+                                <td><b>Anova</b></td>
+                                <td> df</td>
+                                <td> sum_sq </td>
+                                <td> d.mean_sq </td>
+                                <td> F </td>
+                                <td> PR(>F) </td>
+                            </tr>
+                            <tr>
+                                <td>{{d.Var}} </td>
+                                <td>{{d.df}} </td>
+                                <td>{{d.sum_sq}} </td>
+                                <td>{{d.mean_sq}} </td>
+                                <td>{{d.F}} </td>
+                                <td>{{d.PR}} </td>
+                            </tr>
+                            <tr>
+                                <td>{{d.Var_}} </td>
+                                <td>{{d.df_}} </td>
+                                <td>{{d.sum_sq_}} </td>
+                                <td>{{d.mean_sq_}} </td>
+                                <td>{{d.F_}} </td>
+                                <td>{{d.PR_}} </td>
+                            </tr>
+                            <tr>
+                                <td>Total </td>
+                                <td>{{d.total_df}} </td>
+                                <td>{{d.total_sum}} </td>
+                                <td colspan="3"></td>
+                            </tr>
+                        {% elif d.Nombre == 'Contrastes'%}
+                            <tr>
+                                <td colspan="2"><b>Contrastes sobre β1 y β0</b></td>
+                                <td> coef </td>
+                                <td> std err </td>
+                                <td> t </td>
+                                <td> PR>|t| </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">const</td>
+                                <td>{{d.coef}}</td>
+                                <td>{{d.std_err}}</td>
+                                <td>{{d.t}}</td>
+                                <td>{{d.p}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">{{d.Var}}</td>
+                                <td>{{d.coef_}}</td>
+                                <td>{{d.std_err_}}</td>
+                                <td>{{d.t_}}</td>
+                                <td>{{d.p_}}</td>
+                            </tr>
+                        {% elif d.Nombre == 'Estimación sobre β1 y β0' %}
+                            <td colspan="2"><b>{{d.Nombre}}</b></td>
+                            <td colspan="2">{{d.slope}}</td>
+                            <td colspan="2">{{d.intercept}}</td>
+                        {% else %}
+                            <td colspan="2"><b>{{ d.Nombre }}</b></td>
+                            <td colspan="4">{{ d.Valor | safe}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="table table-sm table-dark table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <h5 style="color: black"> {{ r_logistic }} </h5>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for d in d_logistic %}
+                    <tr>
+                        {% if d.Nombre == 'Estimación' %}
+                            <td colspan="2"><b>Estimación de β1 y β0</b></td>
+                            <td colspan="2">{{d.slope}}</td>
+                            <td colspan="2">{{d.intercept}}</td>
+                        {% elif d.Nombre == 'Contrastes' %}
+                            <tr>
+                                <td colspan="2"><b>Contrastes sobre β1 y β0</b></td>
+                                <td> coef </td>
+                                <td> std err </td>
+                                <td> z </td>
+                                <td> P>|z| </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">const</td>
+                                <td>{{d.coef}}</td>
+                                <td>{{d.std_err}}</td>
+                                <td>{{d.z}}</td>
+                                <td>{{d.p}}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">{{d.Var}}</td>
+                                <td>{{d.coef_}}</td>
+                                <td>{{d.std_err_}}</td>
+                                <td>{{d.z_}}</td>
+                                <td>{{d.p_}}</td>
+                            </tr>
+                        {% elif d.Nombre == 'Verosimilitud' %}
+                        <tr>
+                            <td colspan="2"><b>Test de Verosimilitud</b></td>
+                            <td>Log-likelihood</td>
+                            <td>LLnull</td>
+                            <td>Likelihood ratio</td>
+                            <td>LLR p_value</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td>{{d.llf}}</td>
+                            <td>{{d.llnull}}</td>
+                            <td>{{d.llr}}</td>
+                            <td>{{d.llr_pvalue}}</td>
+                        </tr>
+                        {% elif d.Nombre == 'mcfadden' %}
+                           <td colspan="2"> <b>Coeficiente R2 de McFadden </b></td>
+                           <td>{{d.V1}}</td>
+                        {% else %}
+                            <td colspan="2"><b>{{ d.Nombre }}</b></td>
+                            <td colspan="4">{{ d.Valor | safe}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+</div>
+<script type="text/javascript">
+    function showOptions(var_1, var_2) {
+        check = document.getElementById(var_1);
+        element = document.getElementById(var_2);
+        if (check.checked) {
+            element.style.display = 'block';
+        } else {
+            element.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}

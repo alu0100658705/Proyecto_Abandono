@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Home {% endblock title %}
+
+<!-- Añadir logo-->
+{% block content %}
+<img class="logo" src="{% static 'images/logo.png' %}">
+<div class="container">
+    <div class="row">
+      <div class="col-2">
+      </div>
+      <div class="col-8">
+        <h1 style="text-align: center;">Proyecto de Innovación Educativa</h1>
+        <hr>
+        <h3 style="text-align: center;">Sistema Informático de apoyo a la orientación de estudiantes basado en test psicotécnicos e indicadores de educación</h3>
+      </div>
+      <div class="col-2">
+      </div>
+    </div>
+  </div>
+{% endblock content %}

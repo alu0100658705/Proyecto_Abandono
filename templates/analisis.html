@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <p style="font-size: 24px;">Datos pertenecientes al grado de {{request.session.grado}} en el curso {{request.session.curso}}  </p>
+        </div>
+    </div>
+    <div class="row" style="background-color: white;">
+        <div class="col"></div>
+        <div class="col-sm-8">
+            <p style="font-size: 20px;"><b>Variables aptas para el análisis:</b></p>
+            <table class="table table-sm table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <td style="font-size: 15px;"><b>Nombre de la Variable </b></td>
+                        <td style="font-size: 15px;"><b>Significativa (α = 0.05)</b></td>
+                    </tr>
+                </thead>
+                <tbody style="font-size: 15px;">
+                    {% for f in lista_variables %}
+                        <tr>
+                            <td>{{f.Nombre}}</td>
+                            <td>{{f.P_valor}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div style="text-align:center;">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-row" style="font-size: 18px;">
+                        <div class="form-group col-md-12"> <label for="inputState" style="color: black;"><b>Seleccionar la variable a estudiar:</b></label>
+                            {{ form.variables }}
+                        </div>
+                    </div>
+                    <br>
+                    <button type="submit" value="submit" class="btn btn-dark">Obtener Análisis</button>
+                </form>
+                <br>
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-8">
+            {% if mostrar == True %}
+                <p style="font-size: 20px;"><b>Resultados:</b></p>
+                {% if variable != 'Análisis Completo' %}
+                <table class="table table-sm table-striped table-bordered">
+                    <thead class="table-dark">
+                        <tr>
+                            <td style="font-size: 20px;"><b>{{variable}} </b></td>
+                            <td style="font-size: 20px;"><b>Probabilidad de Abandono: </b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for f in resultados %}
+                            <tr>
+                                <td>{{f.Var}}</td>
+                                <td>{{f.Probabilidad}}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row">
+                <img src='data:image/png;base64,{{graf}}' atl='graf_barras' class="center"/>
+                <br>
+                {% else %}
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

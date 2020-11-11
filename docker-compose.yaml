@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    volumes: 
+      - static:/code/static
+      - .:/code
+    depends_on: 
+      - db
+
+  db:
+    image: postgres:11
+    volumes: 
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
+
+  nginx:
+    image: nginx:1.13
+    ports: 
+      - 8000:80
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static:/code/static
+    depends_on: 
+      - web
+
+volumes: 
+  .:
+  postgres_data:
+  static:

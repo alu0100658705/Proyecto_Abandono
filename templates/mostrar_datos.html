@@ -1,0 +1,143 @@
+{% extends 'base.html' %} 
+
+{% block title %} Datos {% endblock title %}
+
+{% block content %}
+
+<div class="container" id="formulario_subir">
+    <form method="get" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {{ form.source.errors }}
+        {{ form.source }}
+        <p class="form_datos">Formulario: Mostrar Datos</p>
+        <hr class="form_datos">   
+        <p> <b> {{ form.grado.label }} </b> {{ form.grado }} </p>
+        <p> <b> {{ form.curso.label }} </b> {{ form.curso }} </p>
+        <p> <b> {{ form.rp_30.label }} </b> {{ form.rp_30}} </p>
+        <div style="text-align:center;">
+            <button type="submit" value="submit" class="bt1">Mostrar</button>
+        </div>
+    </form>
+    <br>
+</div>
+<br>
+<div class="container-fluid">
+    <br>
+    <br> 
+    {% if alumnos %}
+        {% if rp_30 == 'Off' %}
+        <div class="table-responsive">
+            <table class="table table-sm table-striped table-bordered table-secondary">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Sexo</td>
+                        <td>Edad</td>
+                        <td>Procedencia</td>
+                        <td>Trabaja</td>
+                        <td>Beca</td>
+                        <td>Preinscripción</td>
+                        <td>Preferencia</td>
+                        <td>Modalidad</td>
+                        <td>Nota Bach/Ciclo</td>
+                        <td>Nota Prueba</td>
+                        <td>Nota Específica</td>
+                        <td>Nota Admisión</td>
+                        <td>Abandona</td>
+                        <td>Asignaturas 1º Año</td>
+                        <td>Asignaturas 2º Año</td>
+                        <td>Media 1ºAño</td>
+                        <td>Media 2ºAño</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alumno in alumnos %}
+                    <tr>
+                        <td> {{ alumno.alumno_id }} </td>
+                        <td> {{ alumno.Sexo }} </td>
+                        <td> {{ alumno.Edad }} </td>
+                        <td> {{ alumno.Procedencia }} </td>
+                        <td> {{ alumno.Trabajo }} </td>
+                        <td> {{ alumno.Beca }} </td>
+                        <td> {{ alumno.Convocatoria }} </td>
+                        <td> {{ alumno.Preferencia }} </td>
+                        <td> {{ alumno.Modalidad }} </td>
+                        <td> {{ alumno.Nota_Bach_Ciclo }} </td>
+                        <td> {{ alumno.Nota_Prueba }} </td>
+                        <td> {{ alumno.Nota_Especifica }} </td>
+                        <td> {{ alumno.Nota_Admision }} </td>
+                        <td> {{ alumno.Abandono }} </td>
+                        <td> {{ alumno.asignaturas_matriculadas_primer_año }} </td>
+                        <td> {{ alumno.asignaturas_matriculadas_segundo_año }} </td>
+                        <td> {{ alumno.media_primer_año }}</td>
+                        <td> {{ alumno.media_segundo_año }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="table-responsive">
+                <table class="table table-sm table-striped table-bordered table-secondary">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Sexo</td>
+                            <td>Edad</td>
+                            <td>Procedencia</td>
+                            <td>Trabaja</td>
+                            <td>Beca</td>
+                            <td>Preinscripción</td>
+                            <td>Preferencia</td>
+                            <td>Modalidad</td>
+                            <td>Nota Bach/Ciclo</td>
+                            <td>Nota Prueba</td>
+                            <td>Nota Específica</td>
+                            <td>Nota Admisión</td>
+                            <td>Abandona</td>
+                            <td>RP30: Total</td> 
+                            <td>RP30: Aciertos</td>
+                            <td>RP30: Fallos</td>
+                            <td>Asignaturas 1º Año</td>
+                            <td>Asignaturas 2º Año</td>
+                            <td>Media 1ºAño</td>
+                            <td>Media 2ºAño</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for alumno in alumnos %}
+                        <tr>
+                            <td> {{ alumno.alumno_id }} </td>
+                            <td> {{ alumno.Sexo }} </td>
+                            <td> {{ alumno.Edad }} </td>
+                            <td> {{ alumno.Procedencia }} </td>
+                            <td> {{ alumno.Trabajo }} </td>
+                            <td> {{ alumno.Beca }} </td>
+                            <td> {{ alumno.Convocatoria }} </td>
+                            <td> {{ alumno.Preferencia }} </td>
+                            <td> {{ alumno.Modalidad }} </td>
+                            <td> {{ alumno.Nota_Bach_Ciclo }} </td>
+                            <td> {{ alumno.Nota_Prueba }} </td>
+                            <td> {{ alumno.Nota_Especifica }} </td>
+                            <td> {{ alumno.Nota_Admision }} </td>
+                            <td> {{ alumno.Abandono }} </td>
+                            <td> {{ alumno.Total_prueba}}</td>
+                            <td> {{ alumno.Aciertos}}</td>
+                            <td> {{ alumno.Fallos}}</td>
+                            <td> {{ alumno.asignaturas_matriculadas_primer_año }} </td>
+                            <td> {{ alumno.asignaturas_matriculadas_segundo_año }} </td>
+                            <td> {{ alumno.media_primer_año }}</td>
+                            <td> {{ alumno.media_segundo_año }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+    </div>
+        {% else %}
+            <br>
+            <h3 style="color: red;">{{ mensaje }}</h3>
+        {% endif %}
+    <br>
+</div>
+{% endblock %}
